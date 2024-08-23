@@ -1,72 +1,88 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="icon" href="https://minhanexx.nexxera.io/assets/images/nexx-green.svg" type="image/x-icon">
-    <!-- <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css"> -->
     <script src="https://cdn.tailwindcss.com"></script>
     <title>Conversor de Label</title>
+    <style>
+        /* Custom colors for Tailwind */
+        .text-custom-color {
+            color: #449c9c;
+        }
+        .border-custom-color {
+            border-color: #449c9c;
+        }
+        .bg-custom-color {
+            background-color: #449c9c;
+        }
+        .hover\:bg-custom-color:hover {
+            background-color: #449c9c;
+        }
+        .focus\:outline-custom-color:focus {
+            outline-color: #449c9c;
+        }
+    </style>
 </head>
 
-<body id="body" class="flex items-center justify-center h-screen gap-8">
-    <script src="script.js" defer></script>
+<body class="flex flex-col min-h-screen p-4 bg-gray-100">
 
-    <form id="conversor" class="flex flex-col justify-center" name="convert">
+    <!-- Título no canto superior esquerdo -->
+    <header class="absolute top-4 left-4">
+        <h1 class="text-2xl font-medium text-custom-color ">Conversor de Label - SE</h1>
+    </header>
 
-        <h4 id="temp" class="">Label:</h4>
+    <main class="flex flex-1 items-center justify-center gap-8 mt-16">
 
-        <input id="inputLabel" class="border-b-2 border-blue-500 px-2 py-2 rounded outline-1 outline-blue-500 outline-offset-0 bg-gray-200" type="text" name="label" size="3"
-            oninput="Convert()" onclick="AutoClean('label')">
+        <script src="script.js" defer></script>
 
-        <br><br>
+        <div class="flex flex-col md:flex-row gap-8 w-full max-w-4xl">
 
-        <h4 id="temp" class="">Operadora:</h4>
+            <!-- Formulário de Conversão -->
+            <form id="conversor" class="flex flex-col flex-1 bg-white p-6 rounded shadow-md" name="convert">
+                <div class="form-section mb-4">
+                    <label for="inputLabel" class="block text-gray-700">Label:</label>
+                    <input id="inputLabel" class="w-full border-b-2 border-custom-color px-2 py-2 rounded outline-none bg-gray-200 focus:outline-custom-color" type="text" name="label" oninput="Convert()" onclick="AutoClean('label')">
+                </div>
 
-        <input list="inputOperadora-datalist" id="inputOperadora" class="border-b-2 border-blue-500 px-2 py-2 rounded outline-1 outline-blue-500 outline-offset-0 bg-gray-200"
-            type="text" name="operadora" oninput="Convert()" onclick="AutoClean('operadora')">
-        <datalist id="inputOperadora-datalist">
-        </datalist>
-        <br><br>
+                <div class="form-section mb-4">
+                    <label for="inputOperadora" class="block text-gray-700">Operadora:</label>
+                    <input list="inputOperadora-datalist" id="inputOperadora" class="w-full border-b-2 border-custom-color px-2 py-2 rounded outline-none bg-gray-200 focus:outline-custom-color" type="text" name="operadora" oninput="Convert()" onclick="AutoClean('operadora')">
+                    <datalist id="inputOperadora-datalist"></datalist>
+                </div>
 
-        <h4 id="tempOutput" class="">OPERADORA - COD</h4>
+                <div class="form-section mb-4">
+                    <h4 id="tempOutput" class="text-gray-700">OPERADORA - COD</h4>
+                    <input id="inputOutput" class="w-full border-b-2 border-custom-color px-2 py-2 rounded outline-none bg-gray-200" type="text" name="output" readonly>
+                </div>
 
-        <input id="inputOutput" class="border-b-2 border-blue-500 px-2 py-2 rounded outline-1 outline-blue-500 outline-offset-0 bg-gray-200" type="text" name="output"
-            size="20" readonly>
+                <div class="form-section mb-4">
+                    <button class="w-full bg-custom-color text-white py-2 rounded hover:text-custom-color hover:bg-gray-200 transition-colors duration-300" type="button" onclick="Clean()">LIMPAR</button>
+                </div>
 
+                <div class="form-section flex items-center gap-2 mb-4">
+                    <input id="checkbox" type="checkbox" onchange="Checkbox()" checked>
+                    <label for="checkbox" class="text-sm text-gray-700">Limpar campo automaticamente ao inserir nova informação</label>
+                </div>
+            </form>
 
-        <br><br>
+            <!-- Formulário de Adquirentes -->
+            <form class="flex flex-col bg-white p-6 rounded shadow-md w-full max-w-lg" action="javascript:handleGetAdquirentes()">
+                <div class="form-section mb-4">
+                    <label for="adquirentes" class="block text-gray-700">Adquirentes (SE)</label>
+                    <textarea id="adquirentes" class="w-full border-b-2 border-custom-color px-2 py-2 rounded outline-none bg-gray-200 h-52" name="adquirentes"></textarea>
+                </div>
+                <div class="form-section mb-4">
+                    <button class="w-full bg-custom-color text-white py-2 rounded hover:text-custom-color hover:bg-gray-200 transition-colors duration-300" type="submit">VERIFICAR</button>
+                </div>
+                <p class="text-red-500" id="notFoundAdquirintes"></p>
+            </form>
 
-        <input class="bg-blue-500 rounded text-white py-2 hover:text-blue-500 hover:bg-gray-200 duration-75 hover:cursor-pointer outline-1 outline-blue-500 outline-offset-0" style="width:100%"
-            id="limpar" type="button" value="LIMPAR" onclick="Clean()">
-
-        <br>
-
-        <div class="flex gap-2">
-            <input id="checkbox" type="checkbox" class="" onchange="Checkbox()" checked>
-            <label for="checkbox" class="text-sm" >Limpar campo automaticamente ao
-                inserir nova informação</label>
         </div>
-
-
-
-    </form>
-
-    <div class="h-5/6 w-1 bg-gray-200 rounded-full"></div>
-
-    <form class="flex flex-col justify-center gap-8 w-96" action="javascript:handleGetAdquirentes()">
-        <div class="flex flex-col flex-1">
-            <h4 id="temp" class="">Adquirentes (SE)</h4>
-            <textarea id="adquirentes" class="border-b-2 border-blue-500 px-2 py-2 rounded outline-1 outline-blue-500 outline-offset-0 bg-gray-200 w-100 h-52 p-2" id=""></textarea>
-        </div>
-        <input class="bg-blue-500 rounded text-white py-2 hover:text-blue-500 hover:bg-gray-200 duration-75 hover:cursor-pointer outline-1 outline-blue-500 outline-offset-0" style="width:100%"
-        id="limpar" type="submit" value="VERIFICAR" onclick="">
-
-        <p class="text-red-500" id="notFoundAdquirintes"></p>
-    </form>
-
+    </main>
 </body>
 
 </html>
