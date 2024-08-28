@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -27,12 +26,11 @@
         }
     </style>
 </head>
-
-<body class="flex flex-col min-h-screen p-4 bg-gray-100">
+<body class="flex flex-col min-h-screen p-4 bg-gray-100 dark:bg-gray-800">
 
     <!-- Título no canto superior esquerdo -->
     <header class="absolute top-4 left-4">
-        <h1 class="text-2xl font-medium text-custom-color ">Conversor de Label - SE</h1>
+        <h1 class="text-2xl font-medium text-custom-color dark:text-white">Conversor de Label - SE</h1>
     </header>
 
     <main class="flex flex-1 items-center justify-center gap-8 mt-16">
@@ -42,47 +40,58 @@
         <div class="flex flex-col md:flex-row gap-8 w-full max-w-4xl">
 
             <!-- Formulário de Conversão -->
-            <form id="conversor" class="flex flex-col flex-1 bg-white p-6 rounded shadow-md" name="convert">
+            <form id="conversor" class="flex flex-col flex-1 bg-white dark:bg-gray-900 p-6 rounded shadow-md" name="convert">
                 <div class="form-section mb-4">
-                    <label for="inputLabel" class="block text-gray-700">Label:</label>
-                    <input id="inputLabel" class="w-full border-b-2 border-custom-color px-2 py-2 rounded outline-none bg-gray-200 focus:outline-custom-color" type="text" name="label" oninput="Convert()" onclick="AutoClean('label')">
+                    <label for="inputLabel" class="block text-gray-700 dark:text-gray-300">Label:</label>
+                    <input id="inputLabel" class="w-full border-b-2 border-custom-color px-2 py-2 rounded outline-none bg-gray-200 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-100 focus:outline-custom-color" type="text" name="label" oninput="Convert()" onclick="AutoClean('label')">
                 </div>
 
                 <div class="form-section mb-4">
-                    <label for="inputOperadora" class="block text-gray-700">Operadora:</label>
-                    <input list="inputOperadora-datalist" id="inputOperadora" class="w-full border-b-2 border-custom-color px-2 py-2 rounded outline-none bg-gray-200 focus:outline-custom-color" type="text" name="operadora" oninput="Convert()" onclick="AutoClean('operadora')">
+                    <label for="inputOperadora" class="block text-gray-700 dark:text-gray-300">Operadora:</label>
+                    <input list="inputOperadora-datalist" id="inputOperadora" class="w-full border-b-2 border-custom-color px-2 py-2 rounded outline-none bg-gray-200 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-100 focus:outline-custom-color" type="text" name="operadora" oninput="Convert()" onclick="AutoClean('operadora')">
                     <datalist id="inputOperadora-datalist"></datalist>
                 </div>
 
                 <div class="form-section mb-4">
-                    <h4 id="tempOutput" class="text-gray-700">OPERADORA - COD</h4>
-                    <input id="inputOutput" class="w-full border-b-2 border-custom-color px-2 py-2 rounded outline-none bg-gray-200" type="text" name="output" readonly>
+                    <h4 id="tempOutput" class="text-gray-700 dark:text-gray-300">OPERADORA - COD</h4>
+                    <input id="inputOutput" class="w-full border-b-2 border-custom-color px-2 py-2 rounded outline-none bg-gray-200 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-100" type="text" name="output" readonly>
                 </div>
 
                 <div class="form-section mb-4">
-                    <button class="w-full bg-custom-color text-white py-2 rounded hover:text-custom-color hover:bg-gray-200 transition-colors duration-300" type="button" onclick="Clean()">LIMPAR</button>
+                    <button class="w-full bg-custom-color text-white dark:bg-custom-color dark:text-gray-900 py-2 rounded hover:text-custom-color hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors duration-300" type="button" onclick="Clean()">LIMPAR</button>
                 </div>
 
                 <div class="form-section flex items-center gap-2 mb-4">
                     <input id="checkbox" type="checkbox" onchange="Checkbox()" checked>
-                    <label for="checkbox" class="text-sm text-gray-700">Limpar campo automaticamente ao inserir nova informação</label>
+                    <label for="checkbox" class="text-sm text-gray-700 dark:text-gray-300">Limpar campo automaticamente ao inserir nova informação</label>
                 </div>
             </form>
 
             <!-- Formulário de Adquirentes -->
-            <form class="flex flex-col bg-white p-6 rounded shadow-md w-full max-w-lg" action="javascript:handleGetAdquirentes()">
+            <form class="flex flex-col bg-white dark:bg-gray-900 p-6 rounded shadow-md w-full max-w-lg" action="javascript:handleGetAdquirentes()">
                 <div class="form-section mb-4">
-                    <label for="adquirentes" class="block text-gray-700">Adquirentes (SE)</label>
-                    <textarea id="adquirentes" class="w-full border-b-2 border-custom-color px-2 py-2 rounded outline-none bg-gray-200 h-52" name="adquirentes"></textarea>
+                    <label for="adquirentes" class="block text-gray-700 dark:text-gray-300">Adquirentes (SE)</label>
+                    <textarea id="adquirentes" class="w-full border-b-2 border-custom-color px-2 py-2 rounded outline-none bg-gray-200 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-100 h-52" name="adquirentes"></textarea>
                 </div>
                 <div class="form-section mb-4">
-                    <button class="w-full bg-custom-color text-white py-2 rounded hover:text-custom-color hover:bg-gray-200 transition-colors duration-300" type="submit">VERIFICAR</button>
+                    <button class="w-full bg-custom-color text-white dark:bg-custom-color dark:text-gray-900 py-2 rounded hover:text-custom-color hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors duration-300" type="submit">VERIFICAR</button>
                 </div>
-                <p class="text-red-500" id="notFoundAdquirintes"></p>
+                <p class="text-red-500 dark:text-red-400" id="notFoundAdquirintes"></p>
             </form>
 
         </div>
     </main>
-</body>
 
+    <script>
+        // Auto-detect dark mode based on user's system preference
+        if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            document.body.classList.add('dark');
+        }
+
+        // Optional: toggle dark mode manually
+        function toggleDarkMode() {
+            document.body.classList.toggle('dark');
+        }
+    </script>
+</body>
 </html>
